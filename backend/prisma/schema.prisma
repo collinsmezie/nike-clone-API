@@ -1,0 +1,105 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  fullName  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  reviews   Review[]
+}
+
+model Product {
+  id          String   @id @default(uuid())
+  name        String
+  category    String
+  price       Float
+  description String
+  rating      Float    @default(0)
+  reviewCount Int      @default(0)
+  style       String
+  badge       String?  // e.g., "Extra 20% off w/ code SPORT"
+  gender      String?  // Men, Women, Unisex, Boys, Girls
+  sport       String?  // Lifestyle, Running, Basketball
+  shoeHeight  String?  // Low Top, High Top
+  isHighlyRated Boolean @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  images      ProductImage[]
+  colors      ProductColor[]
+  sizes       ProductSize[]
+  details     ProductDetail[]
+  reviews     Review[]
+}
+
+model ProductImage {
+  id        String  @id @default(uuid())
+  productId String
+  url       String
+  isPrimary Boolean @default(false)
+  
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  
+  @@index([productId])
+}
+
+model ProductColor {
+  id        String   @id @default(uuid())
+  productId String
+  name      String
+  hexCode   String?
+  imageUrl  String
+  
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  
+  @@index([productId])
+}
+
+model ProductSize {
+  id        String  @id @default(uuid())
+  productId String
+  size      String
+  inStock   Boolean @default(true)
+  
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  
+  @@index([productId])
+}
+
+model ProductDetail {
+  id        String  @id @default(uuid())
+  productId String
+  key       String  // e.g., "Material", "Features"
+  value     String
+  
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  
+  @@index([productId])
+}
+
+model Review {
+  id        String   @id @default(uuid())
+  productId String
+  userId    String
+  rating    Int
+  comment   String
+  createdAt DateTime @default(now())
+  
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@index([productId])
+  @@index([userId])
+}
