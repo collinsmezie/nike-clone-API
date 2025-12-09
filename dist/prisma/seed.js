@@ -2,13 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const client_1 = require("@prisma/client");
 const bcrypt = require("bcrypt");
-const adapter_libsql_1 = require("@prisma/adapter-libsql");
 const dotenv = require("dotenv");
 dotenv.config();
-const adapter = new adapter_libsql_1.PrismaLibSql({
-    url: process.env.DATABASE_URL || 'file:./prisma/dev.db',
-});
-const prisma = new client_1.PrismaClient({ adapter });
+const prisma = new client_1.PrismaClient();
 async function main() {
     console.log('Seeding database...');
     console.log('Clearing existing data...');

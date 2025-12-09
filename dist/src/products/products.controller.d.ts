@@ -13,8 +13,8 @@ export declare class ProductsController {
                 productId: string;
             }[];
             images: {
-                url: string;
                 id: string;
+                url: string;
                 isPrimary: boolean;
                 productId: string;
             }[];
@@ -66,8 +66,8 @@ export declare class ProductsController {
             productId: string;
         }[];
         images: {
-            url: string;
             id: string;
+            url: string;
             isPrimary: boolean;
             productId: string;
         }[];
@@ -102,8 +102,8 @@ export declare class ProductsController {
     }) | null>;
     getRecommendations(id: string): Promise<({
         images: {
-            url: string;
             id: string;
+            url: string;
             isPrimary: boolean;
             productId: string;
         }[];
