@@ -26,7 +26,6 @@
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
   },
-  "scripts": {
   "dependencies": {
     "@nestjs/common": "^11.0.1",
     "@nestjs/core": "^11.0.1",
