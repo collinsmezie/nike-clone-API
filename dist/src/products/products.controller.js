@@ -25,7 +25,11 @@ let ProductsController = class ProductsController {
         return this.productsService.findAll(filterDto);
     }
     async findOne(id) {
-        return this.productsService.findOne(id);
+        const product = await this.productsService.findOne(id);
+        if (!product) {
+            throw new common_1.NotFoundException('Product not found');
+        }
+        return product;
     }
     async getRecommendations(id) {
         return this.productsService.getRecommendations(id);

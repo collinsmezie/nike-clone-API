@@ -10,7 +10,12 @@ export class PrismaService
     super();
   }
   async onModuleInit() {
-    await this.$connect();
+    try {
+      await this.$connect();
+    } catch (error) {
+      console.error('Failed to connect to database:', error);
+      throw error;
+    }
   }
 
   async onModuleDestroy() {

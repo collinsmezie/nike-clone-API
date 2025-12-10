@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Controller, Get, Param, Query, NotFoundException } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { ProductFilterDto } from './dto/product-filter.dto';
 
@@ -13,7 +13,11 @@ export class ProductsController {
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return this.productsService.findOne(id);
+    const product = await this.productsService.findOne(id);
+    if (!product) {
+      throw new NotFoundException('Product not found');
+    }
+    return product;
   }
 
   @Get(':id/recommendations')

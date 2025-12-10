@@ -45,7 +45,7 @@ export declare class ProductsController {
         skip: number;
         take: number;
     }>;
-    findOne(id: string): Promise<({
+    findOne(id: string): Promise<{
         reviews: ({
             user: {
                 fullName: string;
@@ -99,7 +99,7 @@ export declare class ProductsController {
         sport: string | null;
         shoeHeight: string | null;
         isHighlyRated: boolean;
-    }) | null>;
+    }>;
     getRecommendations(id: string): Promise<({
         images: {
             id: string;
